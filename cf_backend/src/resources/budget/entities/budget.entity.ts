@@ -6,7 +6,7 @@ export class Budget implements Prisma.BudgetUncheckedCreateInput {
     id?: number;
 
     @ApiProperty({
-        example: 'Salário',
+        example: 'Restaurante',
         name: 'name',
         description: 'Um nome para o registro',
         required: true
@@ -14,7 +14,7 @@ export class Budget implements Prisma.BudgetUncheckedCreateInput {
     name: string;
 
     @ApiProperty({
-        example: 'Valor recebido no mês',
+        example: 'Valor destinado a gastos com restaurantes, ifood etc.',
         name: 'description',
         description: 'Descrição para o registro',
         required: false
@@ -22,10 +22,10 @@ export class Budget implements Prisma.BudgetUncheckedCreateInput {
     description: string;
 
     @ApiProperty({
-        example: '10.00',
-        name: 'value',
+        example: '200.00',
+        name: 'price',
         description: 'Um valor decimal',
         required: true
     })
-    value: string | number | Prisma.Decimal | DecimalJsLike;
+    price: string | number | Prisma.Decimal | DecimalJsLike;
 }

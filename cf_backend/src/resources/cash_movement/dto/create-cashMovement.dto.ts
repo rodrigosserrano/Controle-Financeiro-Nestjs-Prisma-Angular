@@ -1,10 +1,10 @@
-import { Contas } from "../entities/conta.entity";
+import { CashMovement } from '../entities/cashMovement.entity';
 import { IsDate, IsDecimal, IsInt, IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { Prisma } from "@prisma/client";
 import { DecimalJsLike } from "@prisma/client/runtime";
-import {ApiProperty} from "@nestjs/swagger";
 
-export class CreateContaDto extends Contas {
+
+export class CreateCashMovementDto extends CashMovement {
     @IsNotEmpty({ context: 'O campo tipoContaId não pode ser vazio.'})
     @IsInt({ context: 'O campo tipoContaId precisa ser um inteiro.' })
     tipoContaId: number;
@@ -22,7 +22,7 @@ export class CreateContaDto extends Contas {
 
     @IsDecimal({}, { message: 'O campo valor precisa ser decimal.' })
     @IsOptional()
-    value: string | number | Prisma.Decimal | DecimalJsLike;
+    price: string | number | Prisma.Decimal | DecimalJsLike;
 
     @IsDate({ message: 'O campo data precisa ser data.' })
     @IsNotEmpty({ message: 'O campo data não pode ser vazio.'})

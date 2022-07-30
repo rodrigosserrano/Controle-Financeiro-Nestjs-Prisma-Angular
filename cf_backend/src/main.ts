@@ -9,7 +9,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   const config = new DocumentBuilder()
-      .setTitle('cf_backend')
+      .setTitle('Controle Financeiro')
       .setDescription('Controle Financeiro API')
       .setVersion('1.0')
       .build();
