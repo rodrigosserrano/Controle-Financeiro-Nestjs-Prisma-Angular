@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+
+//Models
+
+//Conta a pagar ou conta a receber
+model TipoConta {
+    id          Int         @id @default(autoincrement())
+    name        String      @unique
+    description String
+    contas      Contas[]
+}
+
+//Registro de contas no geral
+model Contas {
+    id          Int         @id @default(autoincrement())
+    association String
+    name        String
+    description String
+    value       Decimal     @db.Decimal(10, 2)
+    dateToPay   DateTime?   @db.Date
+    tipoConta   TipoConta   @relation(fields: [tipoContaId], references: [id])
+    tipoContaId Int
+}
+
+//Utilizar como valor total até para abater valores de contas e investimentos
+model Budget {
+    id          Int         @id @default(autoincrement())
+    name        String
+    description String
+    value       Decimal     @db.Decimal(10, 2)
+}
