@@ -23,16 +23,22 @@ export class BudgetController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.budgetService.findOne(+id);
+    return this.budgetService.findOne(+id).catch((e) => {
+      throw new BadRequestException(e.message);
+    });
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateBudgetDto: UpdateBudgetDto) {
-    return this.budgetService.update(+id, updateBudgetDto);
+    return this.budgetService.update(+id, updateBudgetDto).catch((e) => {
+      throw new BadRequestException(e.message);
+    });
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.budgetService.remove(+id);
+    return this.budgetService.remove(+id).catch((e) => {
+      throw new BadRequestException(e.message);
+    });
   }
 }

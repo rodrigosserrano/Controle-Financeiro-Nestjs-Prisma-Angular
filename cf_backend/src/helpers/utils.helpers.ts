@@ -1,6 +1,9 @@
 import {validate} from "class-validator";
 
 export class UtilsHelper {
+    // Mensagens genéricas
+    static NOT_FOUND_RESULT = 'Nenhum resultado encontrado.';
+    static NOT_FOUND_DATA = 'Nenhum dado foi passado.';
 
     static IsEmpty(obj: object) {
         for(let prop in obj){

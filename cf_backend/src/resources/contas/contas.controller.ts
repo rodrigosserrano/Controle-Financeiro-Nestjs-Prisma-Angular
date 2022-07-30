@@ -1,8 +1,8 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete, BadRequestException} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, BadRequestException } from '@nestjs/common';
 import { ContasService } from './contas.service';
 import { CreateContaDto } from './dto/create-conta.dto';
 import { UpdateContaDto } from './dto/update-conta.dto';
-import {ApiTags} from "@nestjs/swagger";
+import { ApiTags } from "@nestjs/swagger";
 
 @ApiTags('Contas')
 @Controller('contas')
@@ -23,7 +23,9 @@ export class ContasController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.contasService.findOne(+id);
+    return this.contasService.findOne(+id).catch((e) => {
+      throw new BadRequestException(e.message);
+    });
   }
 
   @Patch(':id')
