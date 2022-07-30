@@ -3,6 +3,7 @@ import { CreateCashMovementDto } from './dto/create-cashMovement.dto';
 import { UpdateCashMovementDto } from './dto/update-cashMovement.dto';
 import { PrismaService } from "../../prisma/prisma.service";
 import { UtilsHelper } from "../../helpers/utils.helpers";
+import { CreateBudgetDto } from "../budget/dto/create-budget.dto";
 
 @Injectable()
 export class CashMovementService {
@@ -13,7 +14,22 @@ export class CashMovementService {
   async create(data: CreateCashMovementDto) {
     if (UtilsHelper.IsEmpty(data)) throw Error(UtilsHelper.NOT_FOUND_DATA);
 
+    const budget: CreateBudgetDto = await this.prismaService.budget.findFirst({ where: { id: data.budgetId }});
+
+    let balanceBudget = Number(budget.cash);
+    let cash          = Number(data.cash);
+    let newBalanceBudget = (balanceBudget - cash);
+
+    if (newBalanceBudget < 0) return JSON.stringify({ result: `Saldo insuficiente para o budget ${budget.name}.` });
+
+    budget.cash = newBalanceBudget.toFixed(2);
+
     data.dateToPay = UtilsHelper.FormatStringData(data.dateToPay);
+
+    await this.prismaService.budget.update({
+      where: { id: data.budgetId },
+      data: { ...budget }
+    })
 
     return await this.prismaService.cashMovement.create({ data });
   }

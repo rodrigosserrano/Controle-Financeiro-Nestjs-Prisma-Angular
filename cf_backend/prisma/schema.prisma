@@ -13,7 +13,7 @@ datasource db {
 
 //Models
 
-//Conta a pagar ou conta a receber
+//Tipos como entrada, saida, etc
 model TypeMovement {
     id                  Int         @id @default(autoincrement())
     name                String      @unique
@@ -24,10 +24,11 @@ model TypeMovement {
 //Registro de entradas e saídas
 model CashMovement {
     id              Int             @id @default(autoincrement())
-    association     String
-    name            String
-    description     String
-    price           Decimal         @db.Decimal(10, 2)
+    association     String          // Ifood
+    budget          Budget          @relation(fields: [budgetId], references: [id])
+    budgetId        Int             //Restaurante
+    description     String          //Comida japonesa
+    cash            Decimal         @db.Decimal(10, 2)
     dateToPay       DateTime?       @db.Date
     typeMovement    TypeMovement    @relation(fields: [typeMovementId], references: [id])
     typeMovementId  Int
@@ -35,8 +36,10 @@ model CashMovement {
 
 //Utilizar como valor total até para abater valores de contas e investimentos
 model Budget {
-    id          Int         @id @default(autoincrement())
-    name        String
-    description String
-    price       Decimal     @db.Decimal(10, 2)
+    id              Int         @id @default(autoincrement())
+    name            String      //Restaurante
+    description     String      //Destinado a gastos com restaurantes, ifood, etc.
+    cash            Decimal     @db.Decimal(10, 2)
+
+    cashMovement    CashMovement[]
 }

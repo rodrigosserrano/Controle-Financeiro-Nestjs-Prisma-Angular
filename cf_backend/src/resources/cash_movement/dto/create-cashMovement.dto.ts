@@ -5,13 +5,13 @@ import { DecimalJsLike } from "@prisma/client/runtime";
 
 
 export class CreateCashMovementDto extends CashMovement {
-    @IsNotEmpty({ context: 'O campo tipoContaId não pode ser vazio.'})
-    @IsInt({ context: 'O campo tipoContaId precisa ser um inteiro.' })
-    tipoContaId: number;
+    @IsNotEmpty({ context: 'O campo typeMovementId não pode ser vazio.'})
+    @IsInt({ context: 'O campo typeMovementId precisa ser um inteiro.' })
+    typeMovementId: number;
 
-    @IsString({ message: 'O campo nome precisa ser texto.'})
-    @IsNotEmpty({ message: 'O campo nome não pode ser vazio.'})
-    name: string;
+    @IsNotEmpty({ context: 'O campo budgetId não pode ser vazio.'})
+    @IsInt({ context: 'O campo budgetId precisa ser um inteiro.' })
+    budgetId: number;
 
     @IsString({ message: 'O campo associação precisa ser texto.'})
     @IsNotEmpty({ message: 'O campo associação não pode ser vazio.'})
@@ -22,9 +22,9 @@ export class CreateCashMovementDto extends CashMovement {
 
     @IsDecimal({}, { message: 'O campo valor precisa ser decimal.' })
     @IsOptional()
-    price: string | number | Prisma.Decimal | DecimalJsLike;
+    cash: string | number | Prisma.Decimal | DecimalJsLike;
 
-    @IsDate({ message: 'O campo data precisa ser data.' })
+    @IsString({ message: 'O campo deve ser passado como 10/11/2022'})
     @IsNotEmpty({ message: 'O campo data não pode ser vazio.'})
     dateToPay: string | Date;
 }

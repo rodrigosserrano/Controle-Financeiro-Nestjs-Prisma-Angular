@@ -13,6 +13,6 @@ export class CreateBudgetDto extends Budget {
 
     @IsDecimal({}, { message: 'O campo valor precisa ser decimal.' })
     @IsOptional()
-    price: string | number | Prisma.Decimal | DecimalJsLike;
+    cash: string | number | Prisma.Decimal | DecimalJsLike;
 }
 
