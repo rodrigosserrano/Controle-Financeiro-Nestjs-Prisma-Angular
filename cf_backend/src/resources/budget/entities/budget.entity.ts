@@ -22,7 +22,7 @@ export class Budget implements Prisma.BudgetUncheckedCreateInput {
     description: string;
 
     @ApiProperty({
-        example: "'200.00'",
+        example: "200.00",
         name: 'cash',
         description: 'Um valor decimal',
         type: 'string',

@@ -10,8 +10,8 @@ export class CashMovementController {
   constructor(private readonly cashMovementService: CashMovementService) {}
 
   @Post()
-  create(@Body() createCashMovementDto: CreateCashMovementDto) {
-    return this.cashMovementService.create(createCashMovementDto).catch((e) => {
+  registryCashMovement(@Body() createCashMovementDto: CreateCashMovementDto) {
+    return this.cashMovementService.registryCashMovement(createCashMovementDto).catch((e) => {
       throw new BadRequestException(e.message);
     });
   }

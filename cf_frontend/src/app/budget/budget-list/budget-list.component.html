@@ -1,0 +1,6 @@
+<div class="budget-list">
+  <app-budget-card
+    *ngFor="let budget of budgetService.budgets"
+    [budget]="budget"
+  ></app-budget-card>
+</div>

@@ -3,39 +3,42 @@ import { CreateCashMovementDto } from './dto/create-cashMovement.dto';
 import { UpdateCashMovementDto } from './dto/update-cashMovement.dto';
 import { PrismaService } from "../../prisma/prisma.service";
 import { UtilsHelper } from "../../helpers/utils.helpers";
-import { CreateBudgetDto } from "../budget/dto/create-budget.dto";
+import { CashMovimentHelpers } from "../../helpers/cashMoviment.helpers";
+import { Budget } from "../budget/entities/budget.entity";
 
 @Injectable()
 export class CashMovementService {
 
-  constructor(private readonly prismaService: PrismaService) {
-  }
+  constructor(private readonly prismaService: PrismaService) {}
 
-  async create(data: CreateCashMovementDto) {
+  async registryCashMovement(data: CreateCashMovementDto) {
     if (UtilsHelper.IsEmpty(data)) throw Error(UtilsHelper.NOT_FOUND_DATA);
 
-    const budget: CreateBudgetDto = await this.prismaService.budget.findFirst({ where: { id: data.budgetId }});
+    //Pega as informações do budget
+    const budget: Budget = await this.prismaService.budget.findFirst({ where: { id: data.budgetId }});
 
-    let balanceBudget = Number(budget.cash);
-    let cash          = Number(data.cash);
-    let newBalanceBudget = (balanceBudget - cash);
+    //Formata os valores para number para que seja possível fazer a conta
+    let newBalanceBudget = CashMovimentHelpers.calcCashMovement(budget, data);
+    if (newBalanceBudget < 0) throw Error('Erro desconhecido');
 
-    if (newBalanceBudget < 0) return JSON.stringify({ result: `Saldo insuficiente para o budget ${budget.name}.` });
-
-    budget.cash = newBalanceBudget.toFixed(2);
-
+    //Formata a data para ser salvo no banco
     data.dateToPay = UtilsHelper.FormatStringData(data.dateToPay);
 
-    await this.prismaService.budget.update({
+    const updateBudget = await this.prismaService.budget.update({
       where: { id: data.budgetId },
-      data: { ...budget }
-    })
+      data: {
+        cash: newBalanceBudget
+      }
+    });
 
-    return await this.prismaService.cashMovement.create({ data });
+    const createCashMovement = await this.prismaService.cashMovement.create({ data });
+
+    return UtilsHelper.treatmentResultJson({ createCashMovement, updateBudget });
   }
 
-  findAll() {
-    return this.prismaService.cashMovement.findMany();
+  async findAll() {
+    const findAll = await this.prismaService.cashMovement.findMany();
+    return UtilsHelper.treatmentResultJson(findAll);
   }
 
   async findOne(id: number) {

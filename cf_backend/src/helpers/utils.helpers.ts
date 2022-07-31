@@ -36,4 +36,8 @@ export class UtilsHelper {
             return { result: result }
         }
     }
+
+    static treatmentResultJson(result: object) {
+        return JSON.stringify({ result: result });
+    }
 }
