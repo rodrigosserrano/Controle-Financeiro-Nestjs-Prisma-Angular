@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BudgetService } from "../../_services/budget.service";
+import { BudgetService } from "../../_services/budget/budget.service";
 
 @Component({
   selector: 'app-budget-list',

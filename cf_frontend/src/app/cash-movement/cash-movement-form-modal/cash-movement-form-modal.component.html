@@ -1,0 +1,61 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Adicionar entrada ou saida.</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <form [formGroup]="cashMovementForm" (ngSubmit)="onSubmit()">
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="association">Associação</label>
+        <input formControlName="association" type="text" class="form-control" id="association" placeholder="iFood">
+      </div>
+
+      <div class="form-group">
+        <label for="description">Descrição</label>
+        <input formControlName="description" type="text" class="form-control" id="description" placeholder="Comprado baião de dois">
+      </div>
+
+      <div class="form-group">
+        <label for="cash">Valor</label>
+        <input formControlName="cash" type="number" class="form-control" id="cash" placeholder="49.90">
+      </div>
+
+      <label for="dateToPay">Data de pagamento</label>
+      <div class="input-group">
+        <input formControlName="dateToPay" id="dateToPay" class="form-control" placeholder="yyyy-mm-dd" name="dateToPay" ngbDatepicker #dateToPay="ngbDatepicker">
+        <button class="btn btn-outline-secondary calendar" (click)="dateToPay.toggle()" type="button"></button>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <hr>
+
+      <div class="form-group">
+        <label for="budgetId">Budget</label>
+        <select name="budgetId" formControlName="budgetId" class="form-control" id="budgetId">
+          <option
+            *ngFor="let budget of budgetService?.budgets"
+            [value]="budget?.id"
+          > {{ budget?.name }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="typeMovementId">Tipo de movimentação</label>
+        <select name="typeMovementId" formControlName="typeMovementId" class="form-control" id="typeMovementId">
+          <option
+            *ngFor="let typeMovement of cashMovementService?.typeMovements"
+            [value]="typeMovement?.id"
+          > {{ typeMovement?.name }}</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-dark">Adicionar</button>
+    </div>
+  </form>
+</ng-template>
+
+<a class="nav-link" href="#" (click)="open(content)">Registrar entrada ou saida</a>

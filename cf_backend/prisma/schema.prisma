@@ -40,6 +40,7 @@ model Budget {
     name            String      //Restaurante
     description     String      //Destinado a gastos com restaurantes, ifood, etc.
     cash            Decimal     @db.Decimal(10, 2)
+    initialCash     Decimal     @db.Decimal(10, 2)
 
     cashMovement    CashMovement[]
 }

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BudgetFormComponent } from './budget-form.component';
+import { BudgetFormModalComponent } from './budget-form.component';
 
 describe('BudgetFormComponent', () => {
-  let component: BudgetFormComponent;
-  let fixture: ComponentFixture<BudgetFormComponent>;
+  let component: BudgetFormModalComponent;
+  let fixture: ComponentFixture<BudgetFormModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BudgetFormComponent ]
+      declarations: [ BudgetFormModalComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(BudgetFormComponent);
+    fixture = TestBed.createComponent(BudgetFormModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

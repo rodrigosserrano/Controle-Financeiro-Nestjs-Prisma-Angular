@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Budget} from "../../_model/Budget";
 
 @Component({
@@ -10,5 +10,7 @@ export class BudgetCardComponent {
   @Input()
   public budget: Budget;
   public colorCard: string = 'blue';
+
+  constructor() {}
 
 }

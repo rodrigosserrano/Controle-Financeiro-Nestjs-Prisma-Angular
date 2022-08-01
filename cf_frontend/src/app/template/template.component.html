@@ -3,17 +3,18 @@
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Controle Financeiro</a>
       <span class="navbar-text">
-         <a class="nav-link" href="#" (click)="onPress()">Adicionar Budget</a>
+        <app-budget-form-modal></app-budget-form-modal>
       </span>
       <span class="navbar-text">
-         <a class="nav-link" href="#">Registrar entrada ou sairda</a>
+<!--         <a class="nav-link" href="#">Registrar entrada ou sairda</a>-->
+        <app-cash-movement-form-modal></app-cash-movement-form-modal>
       </span>
     </div>
   </nav>
 
   <app-budget-list></app-budget-list>
 
-  <div class="comp-render" *ngIf="display">
-    <app-budget-form></app-budget-form>
-  </div>
+<!--  <div class="comp-render" *ngIf="display">-->
+
+<!--  </div>-->
 </div>

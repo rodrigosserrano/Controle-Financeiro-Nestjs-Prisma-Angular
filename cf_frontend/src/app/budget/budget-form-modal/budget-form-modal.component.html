@@ -1,0 +1,39 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Adicionar Budget</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <form [formGroup]="budgetForm" (ngSubmit)="onSubmit()">
+    <div class="modal-body">
+
+        <!-- Usar esse trecho para data
+        <label for="dateOfBirth">Date of birth</label>
+        <div class="input-group">
+          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
+          <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+        </div>
+        -->
+
+
+      <div class="form-group">
+        <label for="name">Nome</label>
+        <input formControlName="name" type="text" class="form-control" id="name" placeholder="Restaurante">
+      </div>
+
+      <div class="form-group">
+        <label for="description">Descrição</label>
+        <input formControlName="description" type="text" class="form-control" id="description" placeholder="Dinheiro destinado a restaurantes">
+      </div>
+
+      <div class="form-group">
+        <label for="cash">Valor</label>
+        <input formControlName="cash" type="number" class="form-control" id="cash" placeholder="200">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-dark">Adicionar</button>
+    </div>
+  </form>
+</ng-template>
+
+<a class="nav-link" href="#" (click)="open(content)">Adicionar Budget</a>

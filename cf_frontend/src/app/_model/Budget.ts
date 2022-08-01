@@ -3,4 +3,5 @@ export interface Budget {
   name: string;
   description: string;
   cash: number | string;
+  initialCash?: number | string;
 }
