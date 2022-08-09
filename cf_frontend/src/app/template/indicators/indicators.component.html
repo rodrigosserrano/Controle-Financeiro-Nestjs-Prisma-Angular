@@ -1,0 +1,13 @@
+<div class="indicators">
+  <div class="indicators__info" *ngFor="let indicator of indicators">
+    <div class="indicators__botton" [class]="'color--'+indicator.color">
+      <div class="indicators__title">
+        {{ indicator.title }}
+      </div>
+
+      <div class="indicators__description">
+        {{ indicator.description }}
+      </div>
+    </div>
+  </div>
+</div>

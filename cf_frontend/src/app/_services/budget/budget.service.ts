@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpResponse} from "@angular/common/http";
 import { Budget } from "../../_model/Budget";
 import {UtilsHelpers} from "../../_helpers/utils.helpers";
 
@@ -16,15 +16,16 @@ export class BudgetService {
   }
 
   private requestBudget(){
-    this.httpClient.get<any>(this.apiUrl).subscribe((res) => {
-      res.result.map(((budget: Budget) => {
+    this.httpClient.get<any>(this.apiUrl).subscribe((res: HttpResponse<Budget[]>) => {
+      res.body?.map((budget: Budget) => {
         this.budgets[budget.id] = {
-          id: budget.id,
-          name: budget.name,
-          description: budget.description,
-          cash: budget.cash,
-        }
-      }))
+              id: budget.id,
+              name: budget.name,
+              description: budget.description,
+              cash: budget.cash,
+              initialCash: budget.initialCash
+            }
+      })
     })
   }
 

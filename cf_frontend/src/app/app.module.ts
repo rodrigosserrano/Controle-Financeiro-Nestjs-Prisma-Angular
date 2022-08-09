@@ -15,6 +15,7 @@ import {NgbDateParserFormatter, NgbDatepickerModule, NgbDropdownModule} from "@n
 import {
   CashMovementFormModalComponent
 } from "./cash-movement/cash-movement-form-modal/cash-movement-form-modal.component";
+import { IndicatorsComponent } from './template/indicators/indicators.component';
 
 registerLocaleData(localePt, 'pt');
 
@@ -28,6 +29,7 @@ registerLocaleData(localePt, 'pt');
 
     BudgetFormModalComponent,
     CashMovementFormModalComponent,
+    IndicatorsComponent,
   ],
   imports: [
     BrowserModule,

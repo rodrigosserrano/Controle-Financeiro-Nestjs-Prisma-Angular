@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import { CashMovement } from "../../_model/CashMovement";
 import { TypeMovement } from "../../_model/TypeMovement";
 import {UtilsHelpers} from "../../_helpers/utils.helpers";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpResponse} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -32,8 +32,8 @@ export class CashMovementService {
   }
 
   private requestTypeMovement(){
-    this.httpClient.get<any>('http://localhost:3000/type_movement').subscribe((res) => {
-      res.result.map(((typeMovement: TypeMovement) => {
+    this.httpClient.get<any>('http://localhost:3000/type_movement').subscribe((res: HttpResponse<TypeMovement[]>) => {
+      res.body?.map(((typeMovement: TypeMovement) => {
         this.typeMovements[typeMovement.id] = {
           id: typeMovement.id,
           name: typeMovement.name,
