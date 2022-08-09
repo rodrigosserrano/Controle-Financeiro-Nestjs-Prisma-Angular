@@ -9,6 +9,11 @@ export class IndicatorsComponent implements OnInit {
   // public colorIndicator: string = 'red';
   public indicators = [
     {
+      color: 'grey',
+      title: 'Zerado',
+      description: 'Seu budget está vazio',
+    },
+    {
       color: 'red',
       title: 'Perigo !',
       description: 'Já foi gasto mais da metade do budget.',

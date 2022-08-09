@@ -15,17 +15,19 @@ export class BudgetCardComponent  implements OnInit{
   constructor() {}
 
   ngOnInit() {
-   const cash = (Number(this.budget?.cash));
-   const initialCash = Number(this.budget?.initialCash);
+    const cash = (Number(this.budget?.cash));
+    const initialCash = Number(this.budget?.initialCash);
 
-    if (cash <= (initialCash*(0.25))) {
+    if (cash == 0) {
+      this.colorCard = 'grey';
+    } else if (cash <= (initialCash*(0.25))) {
       this.colorCard = 'red';
     } else if (cash <= (initialCash*(0.50))) {
-      this.colorCard = 'orange'
+      this.colorCard = 'orange';
     } else if (cash <= (initialCash*(0.75))) {
-      this.colorCard = 'blue'
+      this.colorCard = 'blue';
     } else {
-      this.colorCard = 'green'
+      this.colorCard = 'green';
     }
   }
 
