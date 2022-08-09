@@ -3,7 +3,6 @@ import { CreateBudgetDto } from './dto/create-budget.dto';
 import { UpdateBudgetDto } from './dto/update-budget.dto';
 import { PrismaService } from '../../prisma/prisma.service';
 import { UtilsHelper } from "../../helpers/utils.helpers";
-import { isNumber } from "@nestjs/common/utils/shared.utils";
 
 @Injectable()
 export class BudgetService {
@@ -12,7 +11,7 @@ export class BudgetService {
 
   async create(data: CreateBudgetDto) {
     if (UtilsHelper.IsEmpty(data)) throw Error(UtilsHelper.NOT_FOUND_DATA);
-    if (isNumber(data.cash)) console.log(data.cash)
+    data.initialCash = data.cash
     return await this.prismaService.budget.create({ data });
   }
 

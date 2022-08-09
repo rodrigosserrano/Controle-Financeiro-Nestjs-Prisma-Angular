@@ -32,5 +32,16 @@ export class Budget implements Prisma.BudgetUncheckedCreateInput {
     })
     cash: string | number | Prisma.Decimal | DecimalJsLike;
 
+    @ApiProperty({
+        example: "200.00",
+        name: 'initialCash',
+        description: 'Recebe o mesmo valor de cash para log',
+        type: 'string',
+        format: 'decimal',
+        multipleOf: 0.01,
+        required: true
+    })
+    initialCash: string | number | Prisma.Decimal | DecimalJsLike;
+
     cashMovement?: Prisma.CashMovementUncheckedCreateNestedManyWithoutBudgetInput;
 }
