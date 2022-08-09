@@ -31,24 +31,60 @@
       <hr>
 
       <div class="form-group">
-        <label for="budgetId">Budget</label>
-        <select name="budgetId" formControlName="budgetId" class="form-control" id="budgetId">
-          <option
-            *ngFor="let budget of budgetService?.budgets"
-            [value]="budget?.id"
-          > {{ budget?.name }}</option>
-        </select>
+        <div class="btn-group me-3">
+          <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+            <button type="button" class="btn btn-outline-danger" ngbDropdownToggle>Budget</button>
+            <div class="dropdown-menu" ngbDropdownMenu>
+              <button ngbDropdownItem
+                      *ngFor="let budget of budgetService?.budgets"
+                      [value]="budget?.id"
+              >
+                {{ budget?.name }}
+              </button>
+            </div>
+          </div>
+          <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+            <button type="button" class="btn btn-outline-success" ngbDropdownToggle>Tipo de movimentação</button>
+            <div class="dropdown-menu" ngbDropdownMenu>
+<!--              <button ngbDropdownItem-->
+<!--                      *ngFor="let typeMovement of cashMovementService?.typeMovements"-->
+<!--                      [value]="typeMovement?.id"-->
+<!--                      #let-typeMovementName="typeMovement?.name"-->
+<!--              > {{ typeMovement?.name }}-->
+<!--              </button>-->
+            </div>
+          </div>
+        </div>
+
+
+<!--        <div ngbDropdown class="d-inline-block">-->
+<!--          <button type="button" class="btn btn-outline-dark" id="dropdown1" ngbDropdownToggle>Budget</button>-->
+<!--          <div ngbDropdownMenu aria-labelledby="dropdown1">-->
+<!--            <button ngbDropdownItem-->
+<!--                    *ngFor="let budget of budgetService?.budgets"-->
+<!--                    [value]="budget?.id"-->
+<!--            >-->
+<!--              {{ budget?.name }}-->
+<!--            </button>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <select name="budgetId" formControlName="budgetId" class="form-control" id="budgetId">-->
+<!--          <option-->
+<!--            *ngFor="let budget of budgetService?.budgets"-->
+<!--            [value]="budget?.id"-->
+<!--          > {{ budget?.name }}</option>-->
+<!--        </select>-->
       </div>
 
-      <div class="form-group">
-        <label for="typeMovementId">Tipo de movimentação</label>
-        <select name="typeMovementId" formControlName="typeMovementId" class="form-control" id="typeMovementId">
-          <option
-            *ngFor="let typeMovement of cashMovementService?.typeMovements"
-            [value]="typeMovement?.id"
-          > {{ typeMovement?.name }}</option>
-        </select>
-      </div>
+<!--      <div class="form-group">-->
+<!--        <label for="typeMovementId">Tipo de movimentação</label>-->
+<!--        <select name="typeMovementId" formControlName="typeMovementId" class="form-control" id="typeMovementId">-->
+<!--          <option-->
+<!--            *ngFor="let typeMovement of cashMovementService?.typeMovements"-->
+<!--            [value]="typeMovement?.id"-->
+<!--          > {{ typeMovement?.name }}</option>-->
+<!--        </select>-->
+<!--      </div>-->
 
     </div>
 

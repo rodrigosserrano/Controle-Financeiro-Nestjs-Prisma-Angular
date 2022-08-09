@@ -9,8 +9,8 @@ import { BudgetListComponent } from './budget/budget-list/budget-list.component'
 import { HttpClientModule } from "@angular/common/http";
 import { registerLocaleData } from "@angular/common";
 import { BudgetFormModalComponent } from './budget/budget-form-modal/budget-form-modal.component';
-import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
-import {NgbDateParserFormatter, NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
+import {FormBuilder, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {NgbDateParserFormatter, NgbDatepickerModule, NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
 
 import {
   CashMovementFormModalComponent
@@ -34,6 +34,8 @@ registerLocaleData(localePt, 'pt');
     HttpClientModule,
     ReactiveFormsModule,
     NgbDatepickerModule,
+    NgbDropdownModule,
+    FormsModule,
   ],
   providers: [FormBuilder,
     {
