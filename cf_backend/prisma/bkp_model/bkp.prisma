@@ -1,26 +1,13 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-generator client {
-  provider = "prisma-client-js"
-}
-
-datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
-}
-
-
 //Models
 
 model User {
     id                  Int         @id @default(autoincrement())
 
-    email               String      @unique
+    email               String      @unique @db.VarChar(40)
     password            String
 
-    firstName           String
-    lastName            String
+    firstName           String      @db.VarChar(20)
+    lastName            String      @db.VarChar(40)
 
     budget              Budget[]
     cashMovement        CashMovement[]
@@ -42,8 +29,8 @@ model CashMovement {
     budget          Budget          @relation(fields: [budgetId], references: [id])
     budgetId        Int             //Restaurante
     description     String          //Comida japonesa
-    cash            Decimal
-    dateToPay       DateTime?
+    cash            Decimal         @db.Decimal(10, 2)
+    dateToPay       DateTime?       @db.Date
 
     userId          Int             @default(0)
     user            User            @relation(fields: [userId], references: [id])
@@ -57,8 +44,8 @@ model Budget {
     id              Int         @id @default(autoincrement())
     name            String      //Restaurante
     description     String      //Destinado a gastos com restaurantes, ifood, etc.
-    cash            Decimal
-    initialCash     Decimal     @default(0)
+    cash            Decimal     @db.Decimal(10, 2)
+    initialCash     Decimal     @db.Decimal(10, 2) @default(0)
 
     userId          Int         @default(0)
     user            User        @relation(fields: [userId], references: [id])

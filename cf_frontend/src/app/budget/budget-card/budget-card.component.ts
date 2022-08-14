@@ -20,6 +20,7 @@ export class BudgetCardComponent  implements OnInit{
 
     if (cash == 0) {
       this.colorCard = 'grey';
+      100 <= 300*0.25
     } else if (cash <= (initialCash*(0.25))) {
       this.colorCard = 'red';
     } else if (cash <= (initialCash*(0.50))) {
