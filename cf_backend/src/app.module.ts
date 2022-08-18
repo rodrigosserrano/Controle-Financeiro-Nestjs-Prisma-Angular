@@ -5,9 +5,10 @@ import { CashMovementModule } from './resources/cash_movement/cashMovement.modul
 import { BudgetModule } from './resources/budget/budget.module';
 import { TypeMovementModule } from './resources/type-movement/type-movement.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { UserModule } from './resources/user/user.module';
 
 @Module({
-  imports: [CashMovementModule, BudgetModule, TypeMovementModule, PrismaModule],
+  imports: [CashMovementModule, BudgetModule, TypeMovementModule, PrismaModule, UserModule],
   controllers: [AppController],
   providers: [AppService],
 })
