@@ -5,7 +5,7 @@ import { UpdateCashMovementDto } from './dto/update-cashMovement.dto';
 import { ApiTags } from "@nestjs/swagger";
 
 @ApiTags('Cash Movement')
-@Controller('cash_movement')
+@Controller('cash-movement')
 export class CashMovementController {
   constructor(private readonly cashMovementService: CashMovementService) {}
 

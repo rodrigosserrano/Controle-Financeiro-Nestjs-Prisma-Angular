@@ -5,7 +5,7 @@ import { UpdateTypeMovementDto } from './dto/update-type-movement.dto';
 import {ApiTags} from "@nestjs/swagger";
 
 @ApiTags('Type Movement')
-@Controller('type_movement')
+@Controller('type-movement')
 export class TypeMovementController {
   constructor(private readonly typeMovementService: TypeMovementService) {}
 

@@ -1,5 +1,5 @@
 import { Budget } from "../entities/budget.entity";
-import { IsDecimal, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import {IsDecimal, IsInt, IsNotEmpty, IsOptional, IsString} from "class-validator";
 import { Prisma } from "@prisma/client";
 import { DecimalJsLike } from "@prisma/client/runtime";
 
@@ -18,5 +18,9 @@ export class CreateBudgetDto extends Budget {
     @IsDecimal({}, { message: 'O campo valor precisa ser decimal.' })
     @IsOptional()
     initialCash: string | number | Prisma.Decimal | DecimalJsLike;
+
+    @IsNotEmpty({ context: 'O campo userId não pode ser vazio.'})
+    @IsInt({ context: 'O campo userId precisa ser um inteiro.' })
+    userId: number;
 }
 

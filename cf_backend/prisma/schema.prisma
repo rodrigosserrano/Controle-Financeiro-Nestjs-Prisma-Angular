@@ -22,6 +22,8 @@ model User {
     firstName           String
     lastName            String
 
+    grossIncome         Decimal     @default(0)
+
     budget              Budget[]
     cashMovement        CashMovement[]
 }
@@ -39,14 +41,15 @@ model TypeMovement {
 model CashMovement {
     id              Int             @id @default(autoincrement())
     association     String          // Ifood
-    budget          Budget          @relation(fields: [budgetId], references: [id])
-    budgetId        Int             //Restaurante
     description     String          //Comida japonesa
     cash            Decimal
     dateToPay       DateTime?
 
     userId          Int             @default(0)
     user            User            @relation(fields: [userId], references: [id])
+
+    budget          Budget          @relation(fields: [budgetId], references: [id])
+    budgetId        Int             //Restaurante
 
     typeMovement    TypeMovement    @relation(fields: [typeMovementId], references: [id])
     typeMovementId  Int

@@ -14,14 +14,6 @@ export class CashMovement implements Prisma.CashMovementUncheckedCreateInput {
     association: string;
 
     @ApiProperty({
-        example: '2',
-        name: 'budgetId',
-        description: 'Relação com o budget, de onde está entrando ou saindo dinheiro.',
-        required: true
-    })
-    budgetId: number;
-
-    @ApiProperty({
         example: 'Conta de luz do mes X',
         name: 'description',
         description: 'Uma breve descrição',
@@ -49,9 +41,32 @@ export class CashMovement implements Prisma.CashMovementUncheckedCreateInput {
 
     @ApiProperty({
         example: '2',
+        name: 'userId',
+        description: 'Relação da movimentação feita com o usuário',
+        required: true
+    })
+    userId?: number;
+
+    @ApiProperty({
+        example: '2',
+        name: 'budgetId',
+        description: 'Relação com o budget, de onde está entrando ou saindo dinheiro.',
+        required: true
+    })
+    budgetId: number;
+
+    @ApiProperty({
+        example: '2',
         name: 'typeMovementId',
         description: 'Relação tipo de movimento feito (valor a pagar / receber por exemplo)',
         required: true
     })
     typeMovementId: number;
+
+
+
+
+
+
+
 }

@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 import { DecimalJsLike } from "@prisma/client/runtime";
-import {ApiProperty} from "@nestjs/swagger";
+import { ApiProperty } from "@nestjs/swagger";
 
 export class Budget implements Prisma.BudgetUncheckedCreateInput {
     id?: number;
@@ -43,5 +43,14 @@ export class Budget implements Prisma.BudgetUncheckedCreateInput {
     })
     initialCash: string | number | Prisma.Decimal | DecimalJsLike;
 
+    @ApiProperty({
+        example: '2',
+        name: 'userId',
+        description: 'Relação do budget com o usuário',
+        required: true
+    })
+    userId: number
+
     cashMovement?: Prisma.CashMovementUncheckedCreateNestedManyWithoutBudgetInput;
+
 }
