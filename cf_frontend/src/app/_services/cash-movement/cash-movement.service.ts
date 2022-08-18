@@ -9,7 +9,7 @@ import {HttpClient, HttpResponse} from "@angular/common/http";
 })
 export class CashMovementService {
 
-  private apiUrl = 'http://localhost:3000/cash_movement';
+  private apiUrl = 'http://localhost:3000/cash-movement';
   public typeMovements: any[] = [];
 
   constructor(private httpClient: HttpClient) {
@@ -32,7 +32,7 @@ export class CashMovementService {
   }
 
   private requestTypeMovement(){
-    this.httpClient.get<any>('http://localhost:3000/type_movement').subscribe((res: HttpResponse<TypeMovement[]>) => {
+    this.httpClient.get<any>('http://localhost:3000/type-movement').subscribe((res: HttpResponse<TypeMovement[]>) => {
       res.body?.map(((typeMovement: TypeMovement) => {
         this.typeMovements[typeMovement.id] = {
           id: typeMovement.id,
