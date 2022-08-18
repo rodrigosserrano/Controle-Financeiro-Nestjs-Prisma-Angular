@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CashMovementModule } from './resources/cash_movement/cashMovement.module';
+import { CashMovementModule } from './resources/cash-movement/cash-movement.module';
 import { BudgetModule } from './resources/budget/budget.module';
 import { TypeMovementModule } from './resources/type-movement/type-movement.module';
 import { PrismaModule } from './prisma/prisma.module';

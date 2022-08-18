@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CashMovementController } from './cashMovement.controller';
-import { CashMovementService } from './cashMovement.service';
+import { CashMovementController } from './cash-movement.controller';
+import { CashMovementService } from './cash-movement.service';
 
 describe('EsController', () => {
   let controller: CashMovementController;

@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { CreateCashMovementDto } from './create-cashMovement.dto';
+import { CreateCashMovementDto } from './create-cash-movement.dto';
 import { IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 export class UpdateCashMovementDto extends PartialType(CreateCashMovementDto) {

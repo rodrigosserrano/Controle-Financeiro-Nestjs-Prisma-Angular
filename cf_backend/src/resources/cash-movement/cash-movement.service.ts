@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCashMovementDto } from './dto/create-cashMovement.dto';
-import { UpdateCashMovementDto } from './dto/update-cashMovement.dto';
+import { CreateCashMovementDto } from './dto/create-cash-movement.dto';
+import { UpdateCashMovementDto } from './dto/update-cash-movement.dto';
 import { PrismaService } from "../../prisma/prisma.service";
 import { UtilsHelper } from "../../helpers/utils.helpers";
 import { CashMovimentHelpers } from "../../helpers/cashMoviment.helpers";

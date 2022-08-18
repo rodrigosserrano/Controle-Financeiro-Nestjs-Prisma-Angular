@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, BadRequestException } from '@nestjs/common';
-import { CashMovementService } from './cashMovement.service';
-import { CreateCashMovementDto } from './dto/create-cashMovement.dto';
-import { UpdateCashMovementDto } from './dto/update-cashMovement.dto';
+import { CashMovementService } from './cash-movement.service';
+import { CreateCashMovementDto } from './dto/create-cash-movement.dto';
+import { UpdateCashMovementDto } from './dto/update-cash-movement.dto';
 import { ApiTags } from "@nestjs/swagger";
 
 @ApiTags('Cash Movement')

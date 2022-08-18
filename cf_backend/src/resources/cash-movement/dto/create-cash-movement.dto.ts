@@ -1,4 +1,4 @@
-import { CashMovement } from '../entities/cashMovement.entity';
+import { CashMovement } from '../entities/cash-movement.entity';
 import { IsDate, IsDecimal, IsInt, IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { Prisma } from "@prisma/client";
 import { DecimalJsLike } from "@prisma/client/runtime";

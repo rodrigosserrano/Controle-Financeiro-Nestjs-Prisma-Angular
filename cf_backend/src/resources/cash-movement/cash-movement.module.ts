@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { CashMovementService } from './cashMovement.service';
-import { CashMovementController } from './cashMovement.controller';
+import { CashMovementService } from './cash-movement.service';
+import { CashMovementController } from './cash-movement.controller';
 import { PrismaService } from "../../prisma/prisma.service";
 
 @Module({
