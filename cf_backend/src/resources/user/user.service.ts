@@ -33,8 +33,7 @@ export class UserService {
   }
 
   async findByEmail(email: string) {
-    const user = await this.prismaService.user.findUnique({ where: { email } });
-    return UtilsHelper.treatmentResult(user, UtilsHelper.NOT_FOUND_RESULT);
+    return await this.prismaService.user.findUnique({ where: { email } });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
