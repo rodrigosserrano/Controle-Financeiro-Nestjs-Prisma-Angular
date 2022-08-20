@@ -31,10 +31,10 @@ export class UtilsHelper {
             if (throwErr) {
                 throw Error(text)
             } else {
-                return JSON.stringify({ result: text })
+                return JSON.stringify({ body: text })
             }
         } else {
-            return { result: result }
+            return { body: result }
         }
     }
 

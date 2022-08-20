@@ -32,8 +32,9 @@ export class UserService {
     return UtilsHelper.treatmentResultJson(createUserDto);
   }
 
-  findByEmail(email: string) {
-    return `This action returns a #${email} user`;
+  async findByEmail(email: string) {
+    const user = await this.prismaService.user.findUnique({ where: { email } });
+    return UtilsHelper.treatmentResult(user, UtilsHelper.NOT_FOUND_RESULT);
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

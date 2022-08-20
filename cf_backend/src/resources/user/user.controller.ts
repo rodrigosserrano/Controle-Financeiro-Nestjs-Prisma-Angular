@@ -20,8 +20,13 @@ export class UserController {
   }
 
   @Get(':email')
-  findByEmail(@Param('email') email: string) {
-    return this.userService.findByEmail(email);
+  async findByEmail(@Param('email') email: string) {
+    return await this.userService.findByEmail(email).catch((e) => {
+      throw new HttpException({
+        status: HttpStatus.OK,
+        body: e,
+      }, HttpStatus.OK);
+    });
   }
 
   @Patch(':id')
