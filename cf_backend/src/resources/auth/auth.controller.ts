@@ -2,6 +2,7 @@ import {Controller, HttpCode, HttpStatus, Post, Request, UseGuards} from '@nestj
 import {AuthService} from "./auth.service";
 import {LocalAuthGuard} from "./guards/local-auth.guard";
 import {AuthRequest} from "./models/AuthRequest";
+import {IsPublic} from "./decorators/is-public-decorator";
 
 @Controller()
 export class AuthController {
@@ -10,6 +11,7 @@ export class AuthController {
     @Post('login')
     @HttpCode(HttpStatus.OK)
     @UseGuards(LocalAuthGuard)
+    @IsPublic()
     async login(@Request() req: AuthRequest) {
         return this.authService.login(req.user);
     }
