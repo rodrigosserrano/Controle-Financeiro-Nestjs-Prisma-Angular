@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import {PrismaService} from "../../prisma/prisma.service";
+import {PrismaService} from "../../core/services/prisma/prisma.service";
 import * as bcrypt from 'bcrypt';
 import {Budget} from "../budget/entities/budget.entity";
-import {UtilsHelper} from "../../helpers/utils.helpers";
+import {UtilsHelper} from "../../core/helpers/utils.helpers";
 import {User} from "./entities/user.entity";
 
 @Injectable()

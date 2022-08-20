@@ -13,9 +13,9 @@ async function bootstrap() {
   }));
 
   const config = new DocumentBuilder()
-      .setTitle('Controle Financeiro')
-      .setDescription('Controle Financeiro API')
-      .setVersion('1.0')
+      .setTitle('Finance.io')
+      .setDescription('Finance.io API')
+      .setVersion('1.1')
       .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/api', app, document);

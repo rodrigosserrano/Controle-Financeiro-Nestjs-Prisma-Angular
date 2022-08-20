@@ -45,7 +45,7 @@ export class CashMovement implements Prisma.CashMovementUncheckedCreateInput {
         description: 'Relação da movimentação feita com o usuário',
         required: true
     })
-    userId?: number;
+    userId: number;
 
     @ApiProperty({
         example: '2',
@@ -62,11 +62,4 @@ export class CashMovement implements Prisma.CashMovementUncheckedCreateInput {
         required: true
     })
     typeMovementId: number;
-
-
-
-
-
-
-
 }

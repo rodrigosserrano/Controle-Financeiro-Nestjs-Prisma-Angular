@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTypeMovementDto } from './dto/create-type-movement.dto';
 import { UpdateTypeMovementDto } from './dto/update-type-movement.dto';
-import {PrismaService} from "../../prisma/prisma.service";
-import {UtilsHelper} from "../../helpers/utils.helpers";
+import {PrismaService} from "../../core/services/prisma/prisma.service";
+import {UtilsHelper} from "../../core/helpers/utils.helpers";
 
 @Injectable()
 export class TypeMovementService {

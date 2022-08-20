@@ -48,7 +48,10 @@ export class User implements Prisma.UserUncheckedCreateInput {
     })
     grossIncome: string | number | Prisma.Decimal | DecimalJsLike;
 
+    refreshToken: string;
+
+    updatedAt: Date;
+
     budget?: Prisma.BudgetUncheckedCreateNestedManyWithoutUserInput;
     cashMovement?: Prisma.CashMovementUncheckedCreateNestedManyWithoutUserInput;
-
 }

@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -16,14 +16,15 @@ datasource db {
 model User {
     id                  Int         @id @default(autoincrement())
 
-    email               String      @unique
+    email               String      @unique @db.VarChar(40)
     password            String
 
-    firstName           String
-    lastName            String
+    firstName           String      @db.VarChar(20)
+    lastName            String      @db.VarChar(40)
 
-    grossIncome         Decimal     @default(0)
+    grossIncome         Decimal     @db.Decimal(10, 2)
 
+    refreshToken        String
     createdAt           DateTime   @default(now())
     updatedAt           DateTime   @updatedAt
 
@@ -46,10 +47,10 @@ model CashMovement {
     association     String          // Ifood
     description     String          //Comida japonesa
 
-    cash            Decimal
-    dateToPay       DateTime?
+    cash            Decimal         @db.Decimal(10, 2)
+    dateToPay       DateTime?       @db.Date
 
-    userId          Int             @default(0)
+    userId          Int
     user            User            @relation(fields: [userId], references: [id])
 
     budget          Budget          @relation(fields: [budgetId], references: [id])
@@ -65,10 +66,10 @@ model Budget {
     name            String      //Restaurante
     description     String      //Destinado a gastos com restaurantes, ifood, etc.
 
-    cash            Decimal
-    initialCash     Decimal     @default(0)
+    cash            Decimal     @db.Decimal(10, 2)
+    initialCash     Decimal     @db.Decimal(10, 2)
 
-    userId          Int         @default(0)
+    userId          Int
     user            User        @relation(fields: [userId], references: [id])
 
     cashMovement    CashMovement[]

@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCashMovementDto } from './dto/create-cash-movement.dto';
 import { UpdateCashMovementDto } from './dto/update-cash-movement.dto';
-import { PrismaService } from "../../prisma/prisma.service";
-import { UtilsHelper } from "../../helpers/utils.helpers";
-import { CashMovimentHelpers } from "../../helpers/cashMoviment.helpers";
+import { PrismaService } from "../../core/services/prisma/prisma.service";
+import { UtilsHelper } from "../../core/helpers/utils.helpers";
+import { CashMovimentHelpers } from "../../core/helpers/cashMoviment.helpers";
 import { Budget } from "../budget/entities/budget.entity";
 
 @Injectable()

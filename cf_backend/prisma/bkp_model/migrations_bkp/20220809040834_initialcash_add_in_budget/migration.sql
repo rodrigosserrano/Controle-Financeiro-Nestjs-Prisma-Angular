@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE `Budget` ADD COLUMN `initialCash` DECIMAL(10, 2) NOT NULL DEFAULT 0;

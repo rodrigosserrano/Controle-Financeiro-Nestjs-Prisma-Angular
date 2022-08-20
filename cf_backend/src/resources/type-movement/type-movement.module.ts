@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeMovementService } from './type-movement.service';
 import { TypeMovementController } from './type-movement.controller';
-import {PrismaService} from "../../prisma/prisma.service";
+import {PrismaService} from "../../core/services/prisma/prisma.service";
 
 @Module({
   controllers: [TypeMovementController],

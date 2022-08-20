@@ -1,7 +1,7 @@
 import {User} from "../entities/user.entity";
 import {Prisma} from "@prisma/client";
 import {DecimalJsLike} from "@prisma/client/runtime";
-import {IsDecimal, IsEmail, IsNotEmpty, IsString, Matches, MaxLength, MinLength} from "class-validator";
+import {IsDate, IsDecimal, IsEmail, IsNotEmpty, IsString, Matches, MaxLength, MinLength} from "class-validator";
 
 export class CreateUserDto extends User {
     @IsEmail({}, { message: 'O campo email precisa ser válido.' })
@@ -27,6 +27,11 @@ export class CreateUserDto extends User {
     @IsDecimal({}, { message: 'O campo valor precisa ser decimal.' })
     @IsNotEmpty({ message: 'O campo password não pode ser vazio.'})
     grossIncome: string | number | Prisma.Decimal | DecimalJsLike;
+
+    refreshToken: string;
+
+    @IsDate()
+    updatedAt: Date;
 
     budget: Prisma.BudgetUncheckedCreateNestedManyWithoutUserInput;
     cashMovement: Prisma.CashMovementUncheckedCreateNestedManyWithoutUserInput;

@@ -1,5 +1,5 @@
-import { CashMovement } from "../resources/cash-movement/entities/cash-movement.entity";
-import { Budget } from "../resources/budget/entities/budget.entity";
+import { CashMovement } from "../../resources/cash-movement/entities/cash-movement.entity";
+import { Budget } from "../../resources/budget/entities/budget.entity";
 import {type} from "os";
 
 export class CashMovimentHelpers {

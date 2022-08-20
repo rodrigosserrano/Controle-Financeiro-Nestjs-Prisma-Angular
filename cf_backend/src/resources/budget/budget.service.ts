@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBudgetDto } from './dto/create-budget.dto';
 import { UpdateBudgetDto } from './dto/update-budget.dto';
-import { PrismaService } from '../../prisma/prisma.service';
-import { UtilsHelper } from "../../helpers/utils.helpers";
+import { PrismaService } from '../../core/services/prisma/prisma.service';
+import { UtilsHelper } from "../../core/helpers/utils.helpers";
 
 @Injectable()
 export class BudgetService {
