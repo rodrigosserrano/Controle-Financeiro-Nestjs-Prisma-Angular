@@ -7,10 +7,16 @@ import { TypeMovementModule } from './resources/type-movement/type-movement.modu
 import { PrismaModule } from './prisma/prisma.module';
 import { UserModule } from './resources/user/user.module';
 import { AuthModule } from './resources/auth/auth.module';
+import {APP_GUARD} from "@nestjs/core";
+import {JwtAuthGuard} from "./resources/auth/guards/jwt-guard.guard";
 
 @Module({
   imports: [CashMovementModule, BudgetModule, TypeMovementModule, PrismaModule, UserModule, AuthModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, {
+    provide: APP_GUARD,
+    useClass: JwtAuthGuard
+  }],
 })
+
 export class AppModule {}

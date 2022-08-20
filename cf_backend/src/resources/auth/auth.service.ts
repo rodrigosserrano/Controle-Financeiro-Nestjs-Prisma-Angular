@@ -5,6 +5,7 @@ import {User} from "../user/entities/user.entity";
 import {UserPayload} from "./models/UserPayload";
 import {JwtService} from "@nestjs/jwt";
 import {UserToken} from "./models/UserToken";
+import {UnauthorizedError} from "../../errors/unauthorized.error";
 
 @Injectable()
 export class AuthService {
@@ -27,14 +28,17 @@ export class AuthService {
             }
         }
 
-        throw new Error('Email e/ou senha inválido.');
+        throw new UnauthorizedError(
+            'Email e/ou senha inválido.'
+        );
     }
 
     login(user: User): UserToken {
         const payload: UserPayload = {
             sub: user.id,
             email: user.email,
-            lastName: user.lastName
+            firstName: user.firstName,
+            lastName: user.lastName,
         };
 
         const jwtToken = this.jwtService.sign(payload);
