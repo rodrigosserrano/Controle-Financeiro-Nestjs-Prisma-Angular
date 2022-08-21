@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import { CashMovement } from "../../_model/CashMovement";
-import { TypeMovement } from "../../_model/TypeMovement";
-import {UtilsHelpers} from "../../_helpers/utils.helpers";
+import { CashMovement } from "../../model/CashMovement";
+import { TypeMovement } from "../../model/TypeMovement";
+import {UtilsHelpers} from "../../helpers/utils.helpers";
 import {HttpClient, HttpResponse} from "@angular/common/http";
 
 @Injectable({

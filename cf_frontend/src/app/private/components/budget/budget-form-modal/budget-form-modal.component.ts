@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validator, Validators} from "@angular/forms";
-import {BudgetService} from "../../_services/budget/budget.service";
+import {BudgetService} from "../../../../core/services/budget/budget.service";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({

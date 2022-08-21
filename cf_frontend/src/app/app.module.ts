@@ -1,28 +1,31 @@
-import { NgModule, LOCALE_ID, DEFAULT_CURRENCY_CODE } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {LOCALE_ID, NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 import localePt from '@angular/common/locales/pt';
 
-import { AppComponent } from './app.component';
-import { TemplateComponent } from './template/template.component';
-import { BudgetCardComponent } from './budget/budget-card/budget-card.component';
-import { BudgetListComponent } from './budget/budget-list/budget-list.component';
-import { HttpClientModule } from "@angular/common/http";
-import { registerLocaleData } from "@angular/common";
-import { BudgetFormModalComponent } from './budget/budget-form-modal/budget-form-modal.component';
+import {AppComponent} from './app.component';
+import {PrivateComponent} from './private/private.component';
+import {BudgetCardComponent} from './private/components/budget/budget-card/budget-card.component';
+import {BudgetListComponent} from './private/components/budget/budget-list/budget-list.component';
+import {HttpClientModule} from "@angular/common/http";
+import {registerLocaleData} from "@angular/common";
+import {BudgetFormModalComponent} from './private/components/budget/budget-form-modal/budget-form-modal.component';
 import {FormBuilder, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {NgbDateParserFormatter, NgbDatepickerModule, NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbDatepickerModule, NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
 
 import {
   CashMovementFormModalComponent
-} from "./cash-movement/cash-movement-form-modal/cash-movement-form-modal.component";
-import { IndicatorsComponent } from './template/indicators/indicators.component';
+} from "./private/components/cash-movement/cash-movement-form-modal/cash-movement-form-modal.component";
+import {IndicatorsComponent} from './private/components/indicators/indicators.component';
+import {RegisterComponent} from './public/components/register/register.component';
+import {LoginComponent} from './public/components/login/login.component';
+import {PublicComponent} from './public/public.component';
 
 registerLocaleData(localePt, 'pt');
 
 @NgModule({
   declarations: [
     AppComponent,
-    TemplateComponent,
+    PrivateComponent,
 
     BudgetCardComponent,
     BudgetListComponent,
@@ -30,6 +33,9 @@ registerLocaleData(localePt, 'pt');
     BudgetFormModalComponent,
     CashMovementFormModalComponent,
     IndicatorsComponent,
+    RegisterComponent,
+    LoginComponent,
+    PublicComponent,
   ],
   imports: [
     BrowserModule,

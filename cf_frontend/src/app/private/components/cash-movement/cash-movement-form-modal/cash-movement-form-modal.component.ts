@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validator, Validators} from "@angular/forms";
-import {CashMovementService} from "../../_services/cash-movement/cash-movement.service";
+import {CashMovementService} from "../../../../core/services/cash-movement/cash-movement.service";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import {BudgetService} from "../../_services/budget/budget.service";
+import {BudgetService} from "../../../../core/services/budget/budget.service";
 
 @Component({
   selector: 'app-cash-movement-form-modal',
