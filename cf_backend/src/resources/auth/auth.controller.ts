@@ -1,11 +1,16 @@
-import { Controller, Get, HttpCode, HttpStatus, Post, Request, UseGuards } from '@nestjs/common';
+import {Body, Controller, Get, HttpCode, HttpStatus, Post, Put, Request, UseGuards} from '@nestjs/common';
 import { AuthService } from "./auth.service";
 import { LocalAuthGuard } from "../../core/auth/guards/local-auth.guard";
 import { AuthRequest } from "../../core/models/AuthRequest";
 import { IsPublic } from "../../core/decorators/is-public.decorator";
 import { CurrentUser } from "../../core/decorators/current-user.decorator";
 import { User } from "../user/entities/user.entity";
+import {ApiTags} from "@nestjs/swagger";
+import {RefreshToken} from "../../core/models/RefreshToken";
+import {UnauthorizedError} from "../../core/errors/unauthorized.error";
+import {HttpError} from "../../core/errors/http.error";
 
+@ApiTags('Auth')
 @Controller()
 export class AuthController {
     constructor(private readonly authService: AuthService) {}
@@ -21,5 +26,13 @@ export class AuthController {
     @Get('me')
     getMe(@CurrentUser() user: User) {
         return user;
+    }
+
+    @IsPublic()
+    @Put('refresh-token')
+    async refreshToken(@Body() refreshToken: RefreshToken) {
+        return this.authService.refreshToken(refreshToken.oldToken).catch((error) => {
+            throw new HttpError(error.message, HttpStatus.UNAUTHORIZED)
+        })
     }
 }

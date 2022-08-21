@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import {PrismaService} from "../../core/services/prisma/prisma.service";
@@ -6,6 +6,8 @@ import * as bcrypt from 'bcrypt';
 import {Budget} from "../budget/entities/budget.entity";
 import {UtilsHelper} from "../../core/helpers/utils.helpers";
 import {User} from "./entities/user.entity";
+import {UnauthorizedError} from "../../core/errors/unauthorized.error";
+import {HttpError} from "../../core/errors/http.error";
 
 @Injectable()
 export class UserService {
@@ -13,9 +15,10 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto) {
     const userExists: User = await this.prismaService.user.findFirst({ where: { email: createUserDto.email }});
-    if (userExists) throw UtilsHelper.EMAIL_USER_EXISTS;
 
-    const user = await this.prismaService.user.create({
+    if (userExists) throw Error(UtilsHelper.DATA_EXISTS);
+
+    return await this.prismaService.user.create({
       data: {
         ...createUserDto,
         password: await bcrypt.hash(createUserDto.password, 10)
@@ -28,19 +31,30 @@ export class UserService {
         grossIncome: true,
       }
     });
-
-    return UtilsHelper.treatmentResultJson(createUserDto);
   }
 
   async findByEmail(email: string) {
     return await this.prismaService.user.findUnique({ where: { email } });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async setTokenUser(id: number, jwtToken: string) {
+    return await this.prismaService.user.update({
+      where: { id },
+      data: {
+        refreshToken: jwtToken,
+        updatedAt: new Date()
+      }
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async findUserByToken(oldToken: string) {
+     const user = await this.prismaService.user.findFirst({
+      where: { refreshToken: oldToken },
+    });
+
+     return {
+       ...user,
+       password: undefined
+     };
   }
 }

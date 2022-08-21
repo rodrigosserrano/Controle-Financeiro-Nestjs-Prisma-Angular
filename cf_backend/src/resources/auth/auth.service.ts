@@ -1,4 +1,4 @@
-import {Injectable} from '@nestjs/common';
+import {HttpStatus, Injectable} from '@nestjs/common';
 import {UserService} from "../user/user.service";
 import * as bcrypt from 'bcrypt';
 import {User} from "../user/entities/user.entity";
@@ -6,6 +6,7 @@ import {UserPayload} from "../../core/models/UserPayload";
 import {JwtService} from "@nestjs/jwt";
 import {UserToken} from "../../core/models/UserToken";
 import {UnauthorizedError} from "../../core/errors/unauthorized.error";
+import {HttpError} from "../../core/errors/http.error";
 
 @Injectable()
 export class AuthService {
@@ -33,7 +34,7 @@ export class AuthService {
         );
     }
 
-    login(user: User): UserToken {
+    async login(user: User): Promise<UserToken> {
         const payload: UserPayload = {
             sub: user.id,
             email: user.email,
@@ -42,7 +43,17 @@ export class AuthService {
         };
 
         const jwtToken = this.jwtService.sign(payload);
+        await this.userService.setTokenUser(user.id, jwtToken)
 
         return { access_token: jwtToken }
+    }
+
+    async refreshToken(oldToken: string) {
+        if (oldToken === undefined) throw Error('Token inválido');
+        const user = await this.userService.findUserByToken(oldToken);
+
+        if (!user) throw Error('Token inválido');
+
+        return this.login(user);
     }
 }

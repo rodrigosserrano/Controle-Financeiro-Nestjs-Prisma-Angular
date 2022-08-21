@@ -28,10 +28,9 @@ export class CreateUserDto extends User {
     @IsNotEmpty({ message: 'O campo password não pode ser vazio.'})
     grossIncome: string | number | Prisma.Decimal | DecimalJsLike;
 
-    refreshToken: string;
+    refreshToken?: string;
 
-    @IsDate()
-    updatedAt: Date;
+    updatedAt?: Date;
 
     budget: Prisma.BudgetUncheckedCreateNestedManyWithoutUserInput;
     cashMovement: Prisma.CashMovementUncheckedCreateNestedManyWithoutUserInput;
