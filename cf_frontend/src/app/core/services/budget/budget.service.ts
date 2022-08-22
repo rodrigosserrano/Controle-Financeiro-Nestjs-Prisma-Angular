@@ -16,7 +16,8 @@ export class BudgetService {
   }
 
   private requestBudget(){
-    this.httpClient.get<any>(this.apiUrl).subscribe((res: HttpResponse<Budget[]>) => {
+    this.httpClient.get<any>(this.apiUrl)
+      .subscribe((res: HttpResponse<Budget[]>) => {
       res.body?.map((budget: Budget) => {
         this.budgets[budget.id] = {
               id: budget.id,
