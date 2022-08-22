@@ -19,6 +19,10 @@ import {IndicatorsComponent} from './private/components/indicators/indicators.co
 import {RegisterComponent} from './public/components/register/register.component';
 import {LoginComponent} from './public/components/login/login.component';
 import {PublicComponent} from './public/public.component';
+import {AppRoutingModule} from './app-routing.module';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ToastrModule} from "ngx-toastr";
+import {Interceptor} from "./validate-token.interceptor";
 
 registerLocaleData(localePt, 'pt');
 
@@ -44,12 +48,16 @@ registerLocaleData(localePt, 'pt');
     NgbDatepickerModule,
     NgbDropdownModule,
     FormsModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    Interceptor,
   ],
   providers: [FormBuilder,
     {
       provide: LOCALE_ID,
       useValue: 'pt'
-    }
+    },
   ],
   bootstrap: [AppComponent]
 })
