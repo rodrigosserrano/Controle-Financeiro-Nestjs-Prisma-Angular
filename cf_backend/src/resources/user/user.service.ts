@@ -47,9 +47,9 @@ export class UserService {
     });
   }
 
-  async findUserByToken(oldToken: string) {
+  async findUserByToken(token: string) {
      const user = await this.prismaService.user.findFirst({
-      where: { refreshToken: oldToken },
+      where: { refreshToken: token },
     });
 
      return {

@@ -49,10 +49,10 @@ export class AuthService {
     }
 
     async refreshToken(oldToken: string) {
-        if (oldToken === undefined) throw Error('Token inválido');
+        if (oldToken === undefined) throw Error('invalid_token');
         const user = await this.userService.findUserByToken(oldToken);
 
-        if (!user) throw Error('Token inválido');
+        if (!user.refreshToken) throw Error('invalid_token');
 
         return this.login(user);
     }
