@@ -28,8 +28,8 @@ export class AuthController {
         return user;
     }
 
-    @IsPublic()
     @Put('refresh-token')
+    @IsPublic()
     async refreshToken(@Body() refreshToken: Token) {
         return this.authService.refreshToken(refreshToken.Token).catch((error) => {
             throw new HttpError(error.message, HttpStatus.UNAUTHORIZED)

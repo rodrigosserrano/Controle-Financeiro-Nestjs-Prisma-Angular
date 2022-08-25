@@ -23,8 +23,22 @@ import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ToastrModule} from "ngx-toastr";
 import {Interceptor} from "./validate-token.interceptor";
+import {AuthorizationService} from "./core/services/authorization/authorization.service";
+import {JWT_OPTIONS, JwtModule} from "@auth0/angular-jwt";
 
 registerLocaleData(localePt, 'pt');
+
+export function jwtOptionFactor(authService: AuthorizationService){
+  return {
+    tokenGetter:() => {
+      return authService.getTokenUser();
+    },
+    allowedDomains:["localhost:3000"],
+    disallowedRoutes:[
+      "http://localhost:3000/login"
+    ]
+  }
+}
 
 @NgModule({
   declarations: [
@@ -52,6 +66,13 @@ registerLocaleData(localePt, 'pt');
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     Interceptor,
+    JwtModule.forRoot({
+      jwtOptionsProvider:{
+        provide: JWT_OPTIONS,
+        useFactory: jwtOptionFactor,
+        deps: [AuthorizationService]
+      }
+    })
   ],
   providers: [FormBuilder,
     {
