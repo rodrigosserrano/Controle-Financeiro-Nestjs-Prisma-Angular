@@ -48,9 +48,9 @@ export class AuthService {
         return { access_token: jwtToken }
     }
 
-    async refreshToken(oldToken: string) {
+    async refreshToken(oldToken: string): Promise<UserToken> {
         if (oldToken === undefined) throw Error('invalid_token');
-        const user = await this.userService.findUserByToken(oldToken);
+        const user: User = await this.userService.findUserByToken(oldToken);
 
         if (!user.refreshToken) throw Error('invalid_token');
 

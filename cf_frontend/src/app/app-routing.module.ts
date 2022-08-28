@@ -11,28 +11,43 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: '/login'
+    redirectTo: '/login',
   },
   {
     path: '',
     component: PublicComponent,
+    data: {
+      requiredAuth: false
+    },
+    canActivate: [AuthorizationGuard]
   },
   {
     path: 'login',
     component: LoginComponent,
+    data: {
+      requiredAuth: false
+    },
+    canActivate: [AuthorizationGuard]
   },
   {
     path: 'register',
     component: RegisterComponent,
+    data: {
+      requiredAuth: false
+    },
+    canActivate: [AuthorizationGuard]
   },
   {
     path: 'home',
     component: PrivateComponent,
+    data: {
+      requiredAuth: true
+    },
     canActivate: [AuthorizationGuard]
   },
   {
     path: '**',
-    redirectTo: '/'
+    redirectTo: '/',
   }
 ];
 

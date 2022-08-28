@@ -20,10 +20,6 @@ import { TokenModel } from "./core/model/TokenModel";
 
 @Injectable()
 export class ValidateTokenInterceptor implements HttpInterceptor {
-
-  token: string | any = this.authService.getTokenUser();
-  isTokenExpired = this.jwtHelper.isTokenExpired(this.token);
-
   constructor(
     private readonly toastrService: ToastrService,
     private readonly authService: AuthorizationService,
@@ -32,71 +28,12 @@ export class ValidateTokenInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if(request.url.indexOf('login') > -1){
-      return next.handle(request);
-    }
-
-    const localStorageToken = localStorage.getItem('ac_t');
-    let token: TokenModel;
-
-    if(localStorageToken) {
-      token = { access_token: localStorageToken } as TokenModel;
-      let isTokenExpired = this.jwtHelper.isTokenExpired(token?.access_token);
-
-      if(!isTokenExpired) {
-        return next.handle(request);
-      } else {
-        //PENSAR EM COMO FAZER O REFRESH TOKEN
-        //SWITCHMAP NAO ESTA DANDO CERTO OU O RETOTRNO DO BACKEND NAO TA ROLANDO
-        //OU TALVEZ ESSA FUNC PRECISE SER ASYNC
-        this.authService.refreshToken(token)
-          .pipe(
-            switchMap((newToken: TokenModel) => {
-              localStorage.setItem('ac_t', newToken.access_token);
-
-              let userInfo = this.jwtHelper.decodeToken(
-                newToken.access_token
-              ) as UserProfile;
-              this.authService.userProfile.next(userInfo);
-
-              let transformedReq = ValidateTokenInterceptor.addToken(request, newToken.access_token);
-
-              return next.handle(transformedReq);
-            }),
-          )
-        // this.authService.refreshToken(token)
-        //   .pipe(
-        //     switchMap((newToken: TokenModel) => {
-        //       localStorage.setItem('ac_t', newToken.access_token);
-        //       let userInfo = this.jwtHelper.decodeToken(
-        //         newToken.access_token
-        //       ) as UserProfile;
-        //       this.authService.userProfile.next(userInfo);
-        //       // let req = ValidateTokenInterceptor.addToken(request, newToken.access_token);
-        //       // return next.handle(req);
-        //       const transformedReq = request.clone({
-        //         headers: request.headers.set(
-        //           'Authorization',
-        //           `Bearer ${newToken.access_token}`
-        //         ),
-        //       });
-        //       return next.handle(transformedReq);
-        //     }),
-        //     catchError(err => {
-        //       if (err instanceof HttpErrorResponse) {
-        //         this.toastrService.error((<HttpErrorResponse>err).message);
-        //       }
-        //       this.authService.logout()
-        //       return of(err);
-        //     })
-        // );
-      }
-    }
-    this.router.navigate(['/']).then();
-    return throwError(() => 'Chamada inválida');
+    let token = localStorage.getItem('ac_t');
+    let req = ValidateTokenInterceptor.addToken(request, token);
+    return next.handle(req);
   }
 
-  private static addToken(request: HttpRequest<any>, token: string) {
+  private static addToken(request: HttpRequest<any>, token: string | null) {
     const req = request;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -105,7 +42,6 @@ export class ValidateTokenInterceptor implements HttpInterceptor {
 
     return req.clone({ headers });
   }
-
 
     /*********************/
 
@@ -152,15 +88,3 @@ export class ValidateTokenInterceptor implements HttpInterceptor {
   // }
 
 }
-
-@NgModule({
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ValidateTokenInterceptor,
-      multi: true,
-    },
-  ],
-})
-
-export class Interceptor {}

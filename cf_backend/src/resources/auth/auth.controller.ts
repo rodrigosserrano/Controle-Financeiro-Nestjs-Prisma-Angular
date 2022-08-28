@@ -6,9 +6,9 @@ import { IsPublic } from "../../core/decorators/is-public.decorator";
 import { CurrentUser } from "../../core/decorators/current-user.decorator";
 import { User } from "../user/entities/user.entity";
 import {ApiTags} from "@nestjs/swagger";
-import {Token} from "../../core/models/Token";
 import {UnauthorizedError} from "../../core/errors/unauthorized.error";
 import {HttpError} from "../../core/errors/http.error";
+import {UserToken} from "../../core/models/UserToken";
 
 @ApiTags('Auth')
 @Controller()
@@ -30,7 +30,7 @@ export class AuthController {
 
     @Put('refresh-token')
     @IsPublic()
-    async refreshToken(@Body() refreshToken: Token) {
+    async refreshToken(@Body() refreshToken: UserToken) {
         return this.authService.refreshToken(refreshToken.access_token).catch((error) => {
             throw new HttpError(error.message, HttpStatus.UNAUTHORIZED)
         })

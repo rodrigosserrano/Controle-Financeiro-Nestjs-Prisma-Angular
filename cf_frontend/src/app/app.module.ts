@@ -6,7 +6,7 @@ import {AppComponent} from './app.component';
 import {PrivateComponent} from './private/private.component';
 import {BudgetCardComponent} from './private/components/budget/budget-card/budget-card.component';
 import {BudgetListComponent} from './private/components/budget/budget-list/budget-list.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {registerLocaleData} from "@angular/common";
 import {BudgetFormModalComponent} from './private/components/budget/budget-form-modal/budget-form-modal.component';
 import {FormBuilder, FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -22,7 +22,7 @@ import {PublicComponent} from './public/public.component';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ToastrModule} from "ngx-toastr";
-import {Interceptor} from "./validate-token.interceptor";
+import {ValidateTokenInterceptor} from "./validate-token.interceptor";
 import {AuthorizationService} from "./core/services/authorization/authorization.service";
 import {JWT_OPTIONS, JwtModule} from "@auth0/angular-jwt";
 
@@ -31,7 +31,7 @@ registerLocaleData(localePt, 'pt');
 export function jwtOptionFactor(authService: AuthorizationService){
   return {
     tokenGetter:() => {
-      return authService.getTokenUser();
+      return authService.getAccessToken();
     },
     allowedDomains:["localhost:3000"],
     disallowedRoutes:[
@@ -65,7 +65,6 @@ export function jwtOptionFactor(authService: AuthorizationService){
     AppRoutingModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    Interceptor,
     JwtModule.forRoot({
       jwtOptionsProvider:{
         provide: JWT_OPTIONS,
@@ -79,6 +78,11 @@ export function jwtOptionFactor(authService: AuthorizationService){
       provide: LOCALE_ID,
       useValue: 'pt'
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ValidateTokenInterceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })

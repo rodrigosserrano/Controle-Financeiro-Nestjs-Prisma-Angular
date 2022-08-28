@@ -16,13 +16,13 @@ export class LoginComponent implements OnInit {
   constructor(
     private readonly authService: AuthorizationService,
     private readonly toastrService: ToastrService,
-    private readonly routerService: Router
+    private readonly router: Router
   ) { }
 
   ngOnInit(): void {
-    if (this.authService.getLoginStatus()) {
-      this.routerService.navigate(['/home']).then();
-    }
+    // if (this.authService.getLoginStatus()) {
+    //   this.router.navigate(['/home']).then();
+    // }
     this.loginForm = new FormGroup<any>({
       email: new FormControl('', {
         validators: [
@@ -42,11 +42,13 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (this.loginForm.valid) {
       this.authService.authorize(this.loginForm.value)
-        .subscribe(
-          (data: any) => {
-            this.toastrService.success('Logado com sucesso !', 'Sucesso')
-            this.authService.setTokenUser(data.access_token)
-            window.location.reload();
+        .subscribe((data: any) => {
+            if (data) {
+              this.router.navigate(['/home']).then();
+            }
+            // this.toastrService.success('Logado com sucesso !', 'Sucesso')
+            // this.authService.setTokenUser(data.access_token)
+            // window.location.reload();
           }
         )
     }
