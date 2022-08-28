@@ -5,13 +5,14 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {environment} from "../../../../environments/environment";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {UserProfile} from "../../model/UserProfile";
+import {TokenModel} from "../../model/TokenModel";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorizationService {
   private urlApi    = 'http://localhost:3000'
-  private tokenUser = sessionStorage.getItem('ac_t');
+  private tokenUser = localStorage.getItem('ac_t');
   userProfile =  new BehaviorSubject<UserProfile | null>(null);
   jwtService: JwtHelperService = new JwtHelperService();
 
@@ -23,7 +24,7 @@ export class AuthorizationService {
 
   //Fazer função de logout
   logout() {
-    sessionStorage.clear();
+    localStorage.clear();
     window.location.reload()
   }
 
@@ -33,7 +34,7 @@ export class AuthorizationService {
 
   getLoginStatus = () => { return !!this.tokenUser };
 
-  setTokenUser = (token: string) => { sessionStorage.setItem('ac_t', token) }
+  setTokenUser = (token: string) => { localStorage.setItem('ac_t', token) }
 
   getTokenUser(){
     if (this.tokenUser) {
@@ -52,7 +53,7 @@ export class AuthorizationService {
     return "";
   };
 
-  refreshToken() {
-    return this.httpClient.put(`${environment.apiUrl}/refresh-token`, { Token: this.tokenUser });
+  refreshToken(payload: TokenModel) {
+    return this.httpClient.put<TokenModel>(`${environment.apiUrl}/refresh-token`, payload);
   }
 }
