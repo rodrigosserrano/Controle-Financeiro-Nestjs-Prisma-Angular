@@ -1,3 +1,3 @@
 export interface Token {
-    Token: string
+    access_token: string
 }
