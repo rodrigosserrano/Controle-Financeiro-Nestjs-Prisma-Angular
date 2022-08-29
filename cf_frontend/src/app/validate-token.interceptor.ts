@@ -30,7 +30,16 @@ export class ValidateTokenInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let token = localStorage.getItem('ac_t');
     let req = ValidateTokenInterceptor.addToken(request, token);
-    return next.handle(req);
+
+    return next.handle(req)
+      .pipe(
+        catchError((error) => {
+          if ((<HttpErrorResponse>error).status === HttpStatusCode.Unauthorized) {
+            this.toastrService.error((<HttpErrorResponse>error).error.message, 'Erro', {closeButton: true});
+          }
+          return of(error);
+        })
+      );
   }
 
   private static addToken(request: HttpRequest<any>, token: string | null) {
@@ -42,49 +51,4 @@ export class ValidateTokenInterceptor implements HttpInterceptor {
 
     return req.clone({ headers });
   }
-
-    /*********************/
-
-  //   let req = request;
-  //
-  //   if(this.token) {
-  //     if (!this.isTokenExpired) {
-  //       req = ValidateTokenInterceptor.addToken(request, this.token)
-  //       return next.handle(req)
-  //     }
-  //   } else {
-  //     this.isTokenExpired = false;
-  //   }
-  //
-  //   return next.handle(req).pipe(
-  //     catchError((error) => {
-  //       if (error instanceof HttpErrorResponse) {
-  //         if ((<HttpErrorResponse>error).status === HttpStatusCode.Unauthorized) {
-  //           this.toastrService.error((<HttpErrorResponse>error).error.message, 'Erro', { closeButton: true });
-  //         }
-  //
-  //         if ((<HttpErrorResponse>error).status === HttpStatusCode.Unauthorized) {
-  //           if ((<HttpErrorResponse>error).error.message != 'invalid_token' && this.isTokenExpired) {
-  //             this.authService.refreshToken().subscribe((r: any) => this.authService.setTokenUser(r.access_token))
-  //           }
-  //           else if ((<HttpErrorResponse>error).error.message == 'invalid_token'){
-  //             this.authService.logout();
-  //           }
-  //         }
-  //       }
-  //       return of(error);
-  //     })
-  //   )
-  // }
-  //
-  // private static addToken(request: HttpRequest<any>, token: string) {
-  //   const req = request;
-  //   const headers = new HttpHeaders({
-  //     'Authorization': `Bearer ${token}`,
-  //     'Content-Type': 'application/json'
-  //   });
-  //
-  //   return req.clone({ headers });
-  // }
-
 }

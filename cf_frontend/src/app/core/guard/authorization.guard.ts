@@ -30,7 +30,6 @@ export class AuthorizationGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     const token = { access_token: localStorage.getItem('ac_t') } as TokenModel;
-    const isTokenExpired = this.jwtService.isTokenExpired(token.access_token);
 
     this.authService.getAccessToken();
     let userProfile = this.authService.userProfile.getValue();
@@ -49,10 +48,13 @@ export class AuthorizationGuard implements CanActivate {
           return false;
         }
 
+        const isTokenExpired = this.jwtService.isTokenExpired(token.access_token);
+
         if (!isTokenExpired) { return true; } //se o token nao expirou, continua
 
         const isRefreshSuccess = this.refreshingToken(token);
-        // se o token passado foi inválido ou nao pode atualizar, tiro da navegacao
+
+        // se o token passado foi inválido ou nao pode atualizar, logout no usuário e tiro da navegação
         if (!isRefreshSuccess) { this.router.navigate(['/']).then(); }
 
         return isRefreshSuccess;
@@ -78,6 +80,7 @@ export class AuthorizationGuard implements CanActivate {
 
       isRefreshSuccess = true;
     } catch (ex) {
+      this.authService.logOut();
       isRefreshSuccess = false;
     }
 
