@@ -20,9 +20,6 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // if (this.authService.getLoginStatus()) {
-    //   this.router.navigate(['/home']).then();
-    // }
     this.loginForm = new FormGroup<any>({
       email: new FormControl('', {
         validators: [
@@ -46,9 +43,6 @@ export class LoginComponent implements OnInit {
             if (data) {
               this.router.navigate(['/home']).then();
             }
-            // this.toastrService.success('Logado com sucesso !', 'Sucesso')
-            // this.authService.setTokenUser(data.access_token)
-            // window.location.reload();
           }
         )
     }

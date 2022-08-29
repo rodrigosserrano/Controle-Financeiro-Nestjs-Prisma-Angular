@@ -1,0 +1,41 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input formControlName="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Digite seu email">
+    <small *ngIf="registerForm.controls['email'].hasError('email')" id="emailHelp" class="form-text text-muted">Digite um email válido</small>
+  </div>
+
+  <div class="form-group">
+    <label for="password">Senha</label>
+    <input formControlName="password" type="password" class="form-control" id="password" placeholder="Digite uma senha">
+    <small *ngIf="registerForm.controls['password'].hasError('minlength')" class="form-text text-muted">A senha deve ter no mínimo 8 caracteres.</small><br>
+    <small *ngIf="registerForm.controls['password'].hasError('hasNumber')" class="form-text text-muted">A senha deve possuir ao menos um número.</small><br>
+    <small *ngIf="registerForm.controls['password'].hasError('hasCapitalCase')" class="form-text text-muted">A senha deve possuir ao menos uma letra maiúscula.</small><br>
+    <small *ngIf="registerForm.controls['password'].hasError('hasSmallCase')" class="form-text text-muted">A senha deve possuir ao menos uma letra minúscula.</small><br>
+    <small *ngIf="registerForm.controls['password'].hasError('hasSpecialCharacters')" class="form-text text-muted">A senha deve possuir ao menos um caractere especial.</small><br>
+  </div>
+
+  <div class="form-group">
+    <label for="confirmPassword">Confirmar senha</label>
+    <input formControlName="confirmPassword" type="password" class="form-control" id="confirmPassword" placeholder="Confirme a senha">
+    <small *ngIf="registerForm.controls['confirmPassword'].hasError('NoPasswordMatch')" id="confirmPasswordHelp" class="form-text text-muted">As senhas devem ser iguais.</small>
+  </div>
+
+  <div class="form-group">
+    <label for="firstName">Primeiro nome</label>
+    <input formControlName="firstName" type="text" class="form-control" id="firstName" placeholder="Digite seu nome">
+  </div>
+
+  <div class="form-group">
+    <label for="lastName">Sobrenome</label>
+    <input formControlName="lastName" type="text" class="form-control" id="lastName" placeholder="Digite seu sobrenome">
+  </div>
+
+  <div class="form-group">
+    <label for="grossIncome">Renda bruta</label>
+    <input formControlName="grossIncome" type="number" class="form-control" id="grossIncome" aria-describedby="grossIncomeHelp" placeholder="Digite sua renda bruta mensal">
+    <small *ngIf="registerForm.controls['grossIncome'].hasError('hasNumber')" id="grossIncomeHelp" class="form-text text-muted">O valor deve ser numérico.</small>
+  </div>
+
+  <button type="submit" class="btn btn-outline-secondary">Rigistrar</button>
+</form>
