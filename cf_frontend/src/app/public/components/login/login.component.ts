@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthorizationService} from "../../../core/services/authorization/authorization.service";
+import {AuthorizationService} from "../../../shared/services/authorization/authorization.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 import {catchError, firstValueFrom} from "rxjs";
@@ -16,29 +16,30 @@ export class LoginComponent implements OnInit {
   constructor(
     private readonly authService: AuthorizationService,
     private readonly toastrService: ToastrService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly fb: FormBuilder,
   ) { }
 
   ngOnInit(): void {
-    this.loginForm = new FormGroup<any>({
-      email: new FormControl('', {
-        validators: [
-          Validators.required,
-          Validators.email
-        ],
-        nonNullable: true,
-      }),
+    if (this.authService.userProfile.getValue() != null) this.router.navigate(['/home']).then();
 
-      password: new FormControl('', {
-        validators: Validators.required,
-        nonNullable: true,
-      })
+    this.loginForm = this.createLogInForm();
+  }
+
+  createLogInForm(): FormGroup {
+    return this.fb.group({
+      email: [null, Validators.compose([
+        Validators.required,
+        Validators.email
+      ])],
+
+      password: [null, Validators.required]
     })
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
-      this.authService.authorize(this.loginForm.value)
+      this.authService.logIn(this.loginForm.value)
         .subscribe((data: any) => {
             if (data) {
               this.router.navigate(['/home']).then();

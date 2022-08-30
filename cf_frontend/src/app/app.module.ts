@@ -23,8 +23,9 @@ import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ToastrModule} from "ngx-toastr";
 import {ValidateTokenInterceptor} from "./validate-token.interceptor";
-import {AuthorizationService} from "./core/services/authorization/authorization.service";
+import {AuthorizationService} from "./shared/services/authorization/authorization.service";
 import {JWT_OPTIONS, JwtModule} from "@auth0/angular-jwt";
+import {NgxCurrencyModule} from "ngx-currency";
 
 registerLocaleData(localePt, 'pt');
 
@@ -66,12 +67,13 @@ export function jwtOptionFactor(authService: AuthorizationService){
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     JwtModule.forRoot({
-      jwtOptionsProvider:{
+      jwtOptionsProvider: {
         provide: JWT_OPTIONS,
         useFactory: jwtOptionFactor,
         deps: [AuthorizationService]
       }
-    })
+    }),
+    NgxCurrencyModule,
   ],
   providers: [FormBuilder,
     {

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Budget} from "../../../../core/model/Budget";
+import {Budget} from "../../../../shared/model/Budget";
 import {map} from "rxjs";
 
 @Component({

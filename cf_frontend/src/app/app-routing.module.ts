@@ -4,7 +4,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {PublicComponent} from "./public/public.component";
 import {LoginComponent} from "./public/components/login/login.component";
 import {PrivateComponent} from "./private/private.component";
-import {AuthorizationGuard} from "./core/guard/authorization.guard";
+import {AuthorizationGuard} from "./shared/guards/authorization.guard";
 import {RegisterComponent} from "./public/components/register/register.component";
 
 const routes: Routes = [

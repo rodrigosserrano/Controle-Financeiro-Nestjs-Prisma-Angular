@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpStatusCode} from "@angular/common/http";
-import {UserLogin} from "../../model/User";
-import {BehaviorSubject, catchError, map, Observable, of, switchMap} from "rxjs";
+import {UserLogin, UserRegistry} from "../../model/User";
+import {BehaviorSubject, catchError, lastValueFrom, map, Observable, of, switchMap} from "rxjs";
 import {environment} from "../../../../environments/environment";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {UserProfile} from "../../model/UserProfile";
@@ -20,7 +20,8 @@ export class AuthorizationService {
     private router: Router
   ) { }
 
-  authorize(payload: UserLogin){
+  logIn(payload: UserLogin){
+    payload.email = payload.email.toLowerCase();
     return this.httpClient.post(`${environment.apiUrl}/login`, payload)
       .pipe(
         map((data) => {
@@ -35,12 +36,17 @@ export class AuthorizationService {
           this.userProfile.next(userInfo);
 
           return true;
-        }),
-        catchError((error) => {
-          console.log(error);
-          return of(false);
         })
       )
+  }
+
+  signIn(payload: UserRegistry){
+    delete payload.confirmPassword;
+    payload.email = payload.email.toLowerCase();
+    payload.grossIncome = String(payload.grossIncome);
+    payload.grossIncome = payload.grossIncome.indexOf('.') === -1 ? `${payload.grossIncome}.00` : payload.grossIncome;
+
+    return lastValueFrom(this.httpClient.post(`${environment.apiUrl}/register`, payload));
   }
 
   logOut() {
@@ -48,9 +54,6 @@ export class AuthorizationService {
     this.userProfile.next(null);
     this.router.navigate(['/']).then();
   }
-
-  //Fazer funcao de register
-  register(){}
 
   getAccessToken(){
     let localStorageToken = localStorage.getItem('ac_t');

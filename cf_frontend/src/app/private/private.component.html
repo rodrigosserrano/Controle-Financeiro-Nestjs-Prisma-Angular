@@ -8,11 +8,14 @@
       <span class="navbar-text">
         <app-cash-movement-form-modal></app-cash-movement-form-modal>
       </span>
+      <span (click)="logOut()">
+        LogOut
+      </span>
     </div>
   </nav>
 
   <div class="container">
-    <h1 *ngIf="userInfo">Bem vindo {{ userInfo.firstName }} {{ userInfo.lastName }}</h1>
+    <h1 *ngIf="userInfo">Bem vindo {{ userInfo.firstName[0].toUpperCase() + userInfo.firstName.substring(1).toLowerCase() }} {{ userInfo.lastName[0].toUpperCase() + userInfo.lastName.substring(1).toLowerCase() }}</h1>
     <h5>Informativo Budget</h5>
     <app-indicators></app-indicators>
     <h5>Budgets</h5>

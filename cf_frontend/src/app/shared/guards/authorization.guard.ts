@@ -35,10 +35,11 @@ export class AuthorizationGuard implements CanActivate {
     let userProfile = this.authService.userProfile.getValue();
 
     if ((userProfile?.sub ?? 0) > 0) { // se eu tenho usuário
-      if (route.data['requiredAuth'] == false) { //minha rota não precisa de auth
-        this.router.navigate(['/']).then(); // navega
-        return false;
-      }
+      // if (route.data['requiredAuth'] == false) { //minha rota não precisa de auth
+      //
+      //   this.router.navigate(['/']).then(); // navega
+      //   return false;
+      // }
 
       return true; // permite navegar em rota que precisa de auth
     } else { // Se nao tenho usuario

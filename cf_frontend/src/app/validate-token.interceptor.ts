@@ -12,11 +12,11 @@ import {
 import {map, mergeMap, Observable, of, retry, switchMap, throwError} from 'rxjs';
 import {catchError} from "rxjs/operators";
 import {ToastrService} from "ngx-toastr";
-import {AuthorizationService} from "./core/services/authorization/authorization.service";
+import {AuthorizationService} from "./shared/services/authorization/authorization.service";
 import {JwtHelperService} from "@auth0/angular-jwt";
-import {UserProfile} from "./core/model/UserProfile";
+import {UserProfile} from "./shared/model/UserProfile";
 import {Router} from "@angular/router";
-import { TokenModel } from "./core/model/TokenModel";
+import { TokenModel } from "./shared/model/TokenModel";
 
 @Injectable()
 export class ValidateTokenInterceptor implements HttpInterceptor {
@@ -36,6 +36,8 @@ export class ValidateTokenInterceptor implements HttpInterceptor {
         catchError((error) => {
           if ((<HttpErrorResponse>error).status === HttpStatusCode.Unauthorized) {
             this.toastrService.error((<HttpErrorResponse>error).error.message, 'Erro', {closeButton: true});
+          } else {
+            this.toastrService.error((<HttpErrorResponse>error).error.message, 'Erro')
           }
           return of(error);
         })

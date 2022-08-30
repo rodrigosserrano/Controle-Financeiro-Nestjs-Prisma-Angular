@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AuthorizationService} from "../../../core/services/authorization/authorization.service";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AuthorizationService} from "../../../shared/services/authorization/authorization.service";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
-import {CustomValidators} from "../../../core/validators/custom-validators";
+import {CustomValidators} from "../../../shared/validators/custom-validators";
+import {HttpStatusCode} from "@angular/common/http";
 
 @Component({
   selector: 'app-register',
@@ -53,6 +54,17 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.registerForm)
+    if (this.registerForm.valid) {
+      this.authService.signIn(this.registerForm.value)
+        .then((res: any) => {
+          console.log(res)
+          if (res.message) {
+            this.toastrService.error(res?.message, 'Erro');
+          } else {
+            this.toastrService.success('Registrado com sucesso !', 'Successo');
+            this.router.navigate(['/login']).then();
+          }
+        });
+    }
   }
 }

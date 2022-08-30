@@ -1,9 +1,9 @@
 export interface UserRegistry {
-  id: number,
-  firstName: string,
-  lastName: string,
   email: string,
   password: string,
+  confirmPassword?: string;
+  firstName: string,
+  lastName: string,
   grossIncome: string | number
 }
 

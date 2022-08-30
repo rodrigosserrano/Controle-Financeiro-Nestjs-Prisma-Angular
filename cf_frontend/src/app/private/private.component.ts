@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthorizationService} from "../core/services/authorization/authorization.service";
-import {UserProfile} from "../core/model/UserProfile";
+import {AuthorizationService} from "../shared/services/authorization/authorization.service";
+import {UserProfile} from "../shared/model/UserProfile";
 
 @Component({
   selector: 'app-private',
@@ -14,5 +14,9 @@ export class PrivateComponent implements OnInit{
 
   ngOnInit(){
     this.userInfo = this.authService.userProfile.getValue();
+  }
+
+  logOut() {
+    this.authService.logOut();
   }
 }
